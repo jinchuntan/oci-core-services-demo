@@ -25,3 +25,13 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 ```
+
+## Output
+<img width="940" height="235" alt="image" src="https://github.com/user-attachments/assets/b6be5ae0-297b-4d02-b819-efea8438e1c0" />
+<img width="940" height="421" alt="image" src="https://github.com/user-attachments/assets/07b0cb83-866d-46ae-ac6a-fccb18b87dde" />
+
+## Details
+<img width="940" height="474" alt="image" src="https://github.com/user-attachments/assets/0ef639a7-efd1-454a-b5e8-0f8a0f51acc8" />
+
+
+
