@@ -14,17 +14,54 @@ This repo is a small hands-on demo using the official Oracle Cloud Infrastructur
 - OCI config set up at `~/.oci/config`
 - An OCI compartment OCID you have access to
 
-## Setup
+## Setup and Run
+
+Run these commands from the repository root with Python 3.11 or newer.
+Configure OCI API-key authentication in `~/.oci/config` first
+(`%USERPROFILE%\.oci\config` on Windows).
+
+### Windows PowerShell
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Copy-Item .env.example .env
+notepad .env
+.\.venv\Scripts\python.exe src/oci_demo.py
+```
+
+### macOS / Linux
 
 ```bash
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# Mac/Linux:
-source .venv/bin/activate
-
-pip install -r requirements.txt
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with your compartment OCID and destination bucket before running.
+.venv/bin/python src/oci_demo.py
 ```
+
+Copy the template only on first setup; keep an existing `.env` when updating.
+If your Windows installation uses `python` instead of `py -3.11`, substitute
+that command when creating the environment. No environment activation is needed.
+
+### Configuration and Permissions
+
+| Setting | Meaning |
+| --- | --- |
+| `OCI_COMPARTMENT_OCID` | Required: the compartment to inspect. |
+| `OCI_BUCKET_NAME` | Destination bucket; defaults to `ace-oci-demo-bucket`. |
+| `OCI_OBJECT_PREFIX` | Report object prefix; defaults to `ace-demo`. |
+| `OCI_PROFILE` | OCI SDK profile name; defaults to `DEFAULT`. |
+
+The configured identity must be allowed to read the tenancy and Compute instances,
+resolve the Object Storage namespace, and upload objects to the selected bucket.
+The script checks the bucket and creates a private bucket if it is missing,
+so it also needs permission to read the bucket and create it when necessary.
+Reports are uploaded directly as text objects; no local report file is written.
+The optional `src/oci_storage_list.py` helper still uses the `DEFAULT` profile,
+`ace-oci-demo-bucket` and `ace-demo/` directly; it does not load `.env`.
+
+Local `.env` files, signing keys, environments and generated reports are ignored by Git.
 
 ## Output
 <img width="1444" height="211" alt="image" src="https://github.com/user-attachments/assets/bd03bcde-8259-4405-a9ea-d9a1884ecd8d" />
